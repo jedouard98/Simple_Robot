@@ -3,146 +3,172 @@ extern const int BUZZER_PIN;
 extern Servo left_arm_servo;
 extern Servo right_arm_servo;
 
-extern Thread sound_thread;
+extern Thread random_sound_thread;
 
 int sequence_number = 0;
 int chosen_sound = -1;
+bool is_sound = false;
 
 // Affirmative sound
 // TODO: fix sequencing of this guy
 void sound_0() {
   switch (sequence_number) {
     case 0:
+      is_sound = true;
+      sequence_number++;
       tone(BUZZER_PIN, 1000);
-      sound_thread.setInterval(75);
+      random_sound_thread.setInterval(75);
       break;
     case 1:
+      sequence_number++;
       tone(BUZZER_PIN, 2000);
-      sound_thread.setInterval(100);
+      random_sound_thread.setInterval(100);
       break;
     case 2:
+      sequence_number++;
       tone(BUZZER_PIN, 700);
-      sound_thread.setInterval(40);
+      random_sound_thread.setInterval(40);
       break;
     case 3:
+      sequence_number++;
       tone(BUZZER_PIN, 1000);
-      sound_thread.setInterval(90);
+      random_sound_thread.setInterval(90);
       break;
     case 4:
+      sequence_number++;
       tone(BUZZER_PIN, 1250);
-      sound_thread.setInterval(75);
+      random_sound_thread.setInterval(75);
       break;
     case 5:
+      sequence_number++;
       tone(BUZZER_PIN, 2000);
-      sound_thread.setInterval(100);
+      random_sound_thread.setInterval(100);
       break;
     case 6:
+      sequence_number++;
       tone(BUZZER_PIN, 1000);
-      sound_thread.setInterval(150);
+      random_sound_thread.setInterval(150);
       break;
     case 7:
+      is_sound = false;
       noTone(BUZZER_PIN);
       sequence_number = 0;
       chosen_sound = -1;
-      sound_thread.enabled = false;
+      random_sound_thread.enabled = false;
       break;
   }
-  sequence_number++;
 }
 
 // Happy sound
 void sound_1() {
   switch (sequence_number) {
     case 0:
+      is_sound = true;
+      sequence_number++;
       tone(BUZZER_PIN, 2000);
-      sound_thread.setInterval(175);
+      random_sound_thread.setInterval(175);
       break;
     case 1:
+      sequence_number++;
       tone(BUZZER_PIN, 1000);
-      sound_thread.setInterval(50);
+      random_sound_thread.setInterval(50);
       break;
     case 2:
+      sequence_number++;
       tone(BUZZER_PIN, 750);
-      sound_thread.setInterval(60);
+      random_sound_thread.setInterval(60);
       break;
     case 3:
+      sequence_number++;
       tone(BUZZER_PIN, 800);
-      sound_thread.setInterval(90);
+      random_sound_thread.setInterval(90);
       break;
     case 4:
+      sequence_number++;
       tone(BUZZER_PIN, 1250);
-      sound_thread.setInterval(75);
+      random_sound_thread.setInterval(75);
       break;
     case 5:
+      sequence_number++;
       tone(BUZZER_PIN, 1500);
-      sound_thread.setInterval(200);
+      random_sound_thread.setInterval(200);
       break;
     case 6:
+      is_sound = false;
       noTone(BUZZER_PIN);
       sequence_number = 0;
-      sound_thread.enabled = false;
+      random_sound_thread.enabled = false;
       chosen_sound = -1;
       break;
   }
-  sequence_number++;
 }
 
 // Sad sound
 void sound_2() {
   switch (sequence_number) {
     case 0:
+      is_sound = true;
+      sequence_number++;
       tone(BUZZER_PIN, 2000);
-      sound_thread.setInterval(100);
+      random_sound_thread.setInterval(100);
       break;
     case 1:
+      sequence_number++;
       tone(BUZZER_PIN, 1800);
-      sound_thread.setInterval(60);
+      random_sound_thread.setInterval(60);
       break;
     case 2:
+      sequence_number++;
       tone(BUZZER_PIN, 1700);
-      sound_thread.setInterval(60);
+      random_sound_thread.setInterval(60);
       break;
     case 3:
+      sequence_number++;
       tone(BUZZER_PIN, 1600);
-      sound_thread.setInterval(60);
+      random_sound_thread.setInterval(60);
       break;
     case 4:
+      sequence_number++;
       tone(BUZZER_PIN, 1500);
-      sound_thread.setInterval(60);
+      random_sound_thread.setInterval(60);
       break;
     case 5:
+      sequence_number++;
       tone(BUZZER_PIN, 1400);
-      sound_thread.setInterval(60);
+      random_sound_thread.setInterval(60);
       break;
     case 6:
+      is_sound = false;
       noTone(BUZZER_PIN);
       sequence_number = 0;
-      sound_thread.enabled = false;
+      random_sound_thread.enabled = false;
       chosen_sound = -1;
       break;
   }
-  sequence_number++;
 }
 
 // Attentive sound
 void sound_3() {
   switch (sequence_number) {
     case 0:
+      is_sound = true;
+      sequence_number++;
       tone(BUZZER_PIN, 2000);
-      sound_thread.setInterval(400);
+      random_sound_thread.setInterval(400);
       break;
     case 1:
+      sequence_number++;
       tone(BUZZER_PIN, 1500);
-      sound_thread.setInterval(150);
+      random_sound_thread.setInterval(150);
       break;
     case 2:
+      is_sound = false;
       noTone(BUZZER_PIN);
       sequence_number = 0;
-      sound_thread.enabled = false;
+      random_sound_thread.enabled = false;
       chosen_sound = -1;
       break;
   }
-  sequence_number++;
 }
 
 void affirm_sound() {
@@ -163,10 +189,10 @@ void attentive_sound() {
 
 void random_sound() {
   if (chosen_sound == -1) {
-    chosen_sound = rand() % 4;
+    chosen_sound = random(4);
   }
 
-  switch (random_chosen_sound) {
+  switch (chosen_sound) {
     case 0:
       sound_0();
       break;

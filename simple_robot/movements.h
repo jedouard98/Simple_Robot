@@ -1,7 +1,7 @@
 extern Servo left_arm_servo;
 extern Servo right_arm_servo;
 
-extern Thread movement_thread;
+extern Thread dance_thread;
 
 
 const int LEFT_ARM_DANCE_STARTING_POSITON = 0;
@@ -18,9 +18,19 @@ void move_left_arm(int position) {
   left_arm_servo.write(left_arm_position);
 }
 
+void move_left_arm_random() {
+  int random_position = random(181);
+  move_left_arm(random_position);
+}
+
 void move_right_arm(int position) {
   right_arm_position = position;
   right_arm_servo.write(right_arm_position);
+}
+
+void move_right_arm_random() {
+  int random_position = random(181);
+  move_right_arm(random_position);
 }
 
 void dance() {
@@ -49,6 +59,6 @@ void dance() {
 }
 
 void stop_dance() {
-  movement_thread.enabled = false;
+  dance_thread.enabled = false;
   is_dancing = false;
 }
