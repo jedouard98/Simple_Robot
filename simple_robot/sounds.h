@@ -10,7 +10,6 @@ int chosen_sound = -1;
 bool is_sound = false;
 
 // Affirmative sound
-// TODO: fix sequencing of this guy
 void sound_0() {
   switch (sequence_number) {
     case 0:

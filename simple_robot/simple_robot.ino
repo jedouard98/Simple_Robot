@@ -81,5 +81,3 @@ void loop(){
     right_arm_movement_thread.setInterval(interval);
   }
 }
-
-
